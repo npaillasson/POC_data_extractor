@@ -1,5 +1,6 @@
 import re
 from getpass import getpass
+import pandas as pd
 import mysql.connector
 from mysql.connector import errorcode
 
@@ -9,6 +10,8 @@ print("connexion à mysql,\n")
 mysql_user = input("user: ")
 mysql_password = getpass()
 database_name = input("database_name: ")
+if not database_name:
+    database_name = "proof_of_concept_adresses"
 
 print("connexion à la base de données en cours...")
 
@@ -34,7 +37,7 @@ except mysql.connector.Error as err:
     exit()
 
 while True:
-    extraction_year = input("Année d'extraction: ")
+    extraction_year = input("Année d'extraction (/stop pour arreter le programme): ")
     if extraction_year == "/stop":
         break
     elif not DATE_FORMAT.match(extraction_year):
@@ -62,9 +65,10 @@ while True:
     cursor_selector.execute(sql_command)
     result = cursor_selector.fetchall()
 
-    for i in result:
-        print(i[0], i[1], i[2], i[3], i[4], i[5], i[6])
-        print(result)
+    format_result = pd.DataFrame(result, columns=["member_id", "member_name", "section_num", "section_name",
+                                                  "cost_of_subscription (€)", "payment_year", "member_adress"])
+
+    print(format_result)
 
     cursor_selector.close()
 
