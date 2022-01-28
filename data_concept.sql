@@ -1,38 +1,3 @@
-/* extraction request: 
-SELECT `member`.`id`, `member`.`name`, `section`.`num`, `section`.`name`, `cost`.`price`, `payment`.`date`, `adress`.`adress FROM member 
-JOIN `adress` 
-ON (`member`.`id`=`adress`.`member_id`) 
-JOIN `payment` 
-ON (`member`.`id`=`payment`.`member_id`) 
-JOIN `section_payment` 
-ON (`payment`.`id`=`section_payment`.`payment_id`) 
-JOIN `section` 
-ON (`section`.`id`=`section_payment`.`section_id`) 
-JOIN `cost` 
-ON (`cost`.`id`=`section`.`cost_id`)
-
-WHERE `payment`.`date`=2021 
-AND ((`adress`.`year_of_move_in`<=2021) 
-AND (`adress`.`moving_year`IS NULL OR `adress`.`moving_year`=2021));
-
-
-SELECT `member`.`id`, `member`.`name`, `section`.`num`, `section`.`name`, `cost`.`price`, `payment`.`date`, `adress`.`adress` 
-FROM member  
-JOIN `adress`  
-ON (`member`.`id`=`adress`.`member_id`)  
-JOIN `payment`  
-ON (`member`.`id`=`payment`.`member_id`)  
-JOIN `section_payment`  
-ON (`payment`.`id`=`section_payment`.`payment_id`)  
-JOIN `section`  
-ON (`section`.`id`=`section_payment`.`section_id`)  
-JOIN `cost` 
-ON (`cost`.`id`=`section`.`cost_id`) 
-
-WHERE `payment`.`date`=2019 
-AND ((`adress`.`year_of_move_in`<=2019) 
-AND (`adress`.`moving_year`IS NULL OR `adress`.`moving_year`>=2019)); */
-
 DROP TABLE IF EXISTS `section_payment`;
 DROP TABLE IF EXISTS `payment`;
 DROP TABLE IF EXISTS `section`;
